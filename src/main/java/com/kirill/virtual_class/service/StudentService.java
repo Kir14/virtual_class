@@ -11,4 +11,5 @@ public interface StudentService {
     Student Add(Student stud);
 
     Student DeleteById(Long id);
+    
 }

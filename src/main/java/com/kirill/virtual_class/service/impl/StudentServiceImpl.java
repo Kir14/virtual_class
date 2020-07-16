@@ -19,6 +19,7 @@ public class StudentServiceImpl implements StudentService {
         Student stud=new Student();
         stud.setId(studentId);
         stud.setName("Kirill");
+        stud.setHandUp(true);
         studentMap.put(stud.getId(),stud);
     }
 
@@ -32,6 +33,7 @@ public class StudentServiceImpl implements StudentService {
     public Student Add(Student stud) {
         Long newStudentId= ++studentId;
         stud.setId(newStudentId);
+        stud.setHandUp(false);
         studentMap.put(stud.getId(),stud);
         return studentMap.get(newStudentId);
     }
