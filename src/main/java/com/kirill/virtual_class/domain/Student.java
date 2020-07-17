@@ -1,10 +1,9 @@
 package com.kirill.virtual_class.domain;
 
 public class Student {
-    private Long    id;
-    private String  name;
+    private Long id;
+    private String name;
     private Boolean handUp;
-
 
 
     public Long getId() {
@@ -29,5 +28,9 @@ public class Student {
 
     public void setHandUp(Boolean handUp) {
         this.handUp = handUp;
+    }
+
+    public Boolean isHandUp() {
+        return handUp;
     }
 }

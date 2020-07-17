@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import axios from "axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faHandPointUp} from "@fortawesome/free-solid-svg-icons";
+import {faHandSparkles} from "@fortawesome/free-solid-svg-icons";
 
 
 export default class Members extends Component {
@@ -28,24 +28,22 @@ export default class Members extends Component {
 
     render() {
         return (
-            <body>
             <ul className="list-group">
                 <li className="list-group-item d-flex justify-content-between align-items-center">
-                    Cras justo odio
-                    <span className="badge badge-primary badge-pill">14</span>
+                    eeeee
+                    <FontAwesomeIcon icon={faHandSparkles} />
                 </li>
                 {
                     this.state.students.map((student)=>(
                         <il key={student.id} className="list-group-item d-flex justify-content-between align-items-center">
                             {student.name}
-                            <FontAwesomeIcon icon={faHandPointUp} />
+                            { student.handUp === true ?
+                                <FontAwesomeIcon icon={faHandSparkles} /> : ""
+                            }
                         </il>
                     ))
-
                 }
             </ul>
-
-            </body>
         );
     }
 }
