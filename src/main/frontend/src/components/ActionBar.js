@@ -38,10 +38,6 @@ export default function ActionBar() {
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
-
-
-
-
         </Router>
     )
 
