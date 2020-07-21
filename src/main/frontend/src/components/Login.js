@@ -23,13 +23,34 @@ export default class Login extends Component {
     submitStudent = event => {
         event.preventDefault();
 
-        const student = {
+        /*const student = {
             name: this.state.name
         };
+        axios.post("http://localhost:8080/members",student)*/
 
 
-        axios.post("http://localhost:8080/members",student)
+        const endpoint = "http://localhost:8080/authenticate";
 
+        const username = this.state.username;
+
+        const user_object = {
+            username: username
+        };
+
+        axios.post(endpoint, user_object).then(res => {
+            localStorage.setItem("authorization", res.data.token);
+            return this.handleDashboard();
+        });
+    }
+
+    handleDashboard() {
+        axios.get("http://localhost:8080/dashboard").then(res => {
+            if (res.data === "success") {
+                this.props.history.push("/dashboard");
+            } else {
+                alert("Authentication failure");
+            }
+        });
     }
 
     studentChange = event => {

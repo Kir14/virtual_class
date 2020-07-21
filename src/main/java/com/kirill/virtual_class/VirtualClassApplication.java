@@ -10,4 +10,5 @@ public class VirtualClassApplication {
 		SpringApplication.run(VirtualClassApplication.class, args);
 	}
 
+
 }

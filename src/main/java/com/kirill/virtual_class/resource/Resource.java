@@ -1,7 +1,5 @@
 package com.kirill.virtual_class.resource;
 
-import com.kirill.virtual_class.domain.Student;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
