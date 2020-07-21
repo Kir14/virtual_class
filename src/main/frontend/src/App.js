@@ -4,6 +4,7 @@ import './App.css';
 import Login from './components/Login';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Members from "./components/Members";
+import Main from "./components/Main";
 
 import ActionBar from "./components/ActionBar";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
@@ -18,6 +19,7 @@ function App() {
           <Switch>
               <Route exact path="/login" exact component={Login}/>
               <Route exact path="/members" exact component={Members}/>
+              <Route exact path="/main" exact component={Main}/>
           </Switch>
 
       </Router>

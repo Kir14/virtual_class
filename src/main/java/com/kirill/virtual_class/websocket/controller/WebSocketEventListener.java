@@ -1,4 +1,4 @@
-package com.kirill.virtual_class.websocket;
+package com.kirill.virtual_class.websocket.controller;
 
 import com.kirill.virtual_class.websocket.model.ClassMessage;
 
