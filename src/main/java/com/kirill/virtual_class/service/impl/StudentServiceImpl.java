@@ -45,4 +45,17 @@ public class StudentServiceImpl implements StudentService {
         }
         return null;
     }
+
+    @Override
+    public Student HandUp(Long id) {
+       studentMap.get(id).setHandUp(true);
+       return studentMap.get(id);
+    }
+
+    @Override
+    public Student HandDown(Long id) {
+        studentMap.get(id).setHandUp(false);
+        return studentMap.get(id);
+    }
+
 }

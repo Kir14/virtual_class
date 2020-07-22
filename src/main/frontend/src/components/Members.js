@@ -46,5 +46,13 @@ export default class Members extends Component {
             </ul>
         );
     }
+
+
+    ///////////////////////////////ddddddddddddddddddddd/////////////////////
+
+    setName = (name) => {
+        console.log(name);
+        this.setState({name: name});
+    };
 }
 

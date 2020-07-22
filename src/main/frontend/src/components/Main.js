@@ -25,9 +25,9 @@ export default class Main extends Component {
      * This function establishes the connect with the websocket and also ensures constant reconnection if connection closes
      */
     connect = () => {
-        var ws = new WebSocket("ws://localhost:3000/ws");
+        let ws = new WebSocket("ws://localhost:3000/ws");
         let that = this; // cache the this
-        var connectInterval;
+        let connectInterval;
 
         // websocket onopen event listener
         ws.onopen = () => {

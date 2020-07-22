@@ -11,22 +11,22 @@ import org.springframework.stereotype.Controller;
 import java.util.Objects;
 
 @Controller
-public class ChatController {
+public class WebSocketController {
+
 
 
     @MessageMapping("/chat.sendMessage")
-    @SendTo("/topic/public")
+    @SendTo("/topic/publicChatRoom")
     public ClassMessage sendMessage(@Payload ClassMessage chatMessage) {
         return chatMessage;
     }
 
-
     @MessageMapping("/chat.addUser")
-    @SendTo("/topic/public")
-    public ClassMessage addUser(@Payload ClassMessage chatMessage,
-                               SimpMessageHeaderAccessor headerAccessor) {
+    @SendTo("/topic/publicChatRoom")
+    public ClassMessage addUser(@Payload ClassMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
         // Add username in web socket session
         Objects.requireNonNull(headerAccessor.getSessionAttributes()).put("username", chatMessage.getSender());
         return chatMessage;
     }
+
 }
