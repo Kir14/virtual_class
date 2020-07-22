@@ -10,6 +10,7 @@ import TextField from "@material-ui/core/TextField";
 class App extends Component {
 
 
+
     constructor(props) {
         super(props);
         this.state = {
@@ -85,7 +86,7 @@ class App extends Component {
                 <div className="align-center">
                     {this.displayMessages()}
                 </div>
-                <SockJsClient url='http://localhost:8088/websocket-chat/'
+                <SockJsClient url='http://localhost:8080/websocket-chat/'
                               topics={['/topic/user']}
                               onConnect={() => {
                                   console.log("connected");
