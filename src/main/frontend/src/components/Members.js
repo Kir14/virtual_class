@@ -1,4 +1,4 @@
-import "./MemdersStyle.css";
+import "./MemberStyle.css";
 
 import React from 'react';
 import {Component} from "react";

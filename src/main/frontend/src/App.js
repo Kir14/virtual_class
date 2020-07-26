@@ -3,22 +3,27 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import React, {Component} from 'react';
 import SockJsClient from 'react-stomp';
-import NameComponent from "./components/NameComponent";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
+
+
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import Login from "./components/Login.js";
+import Members from "./components/Members.js";
+import ActionBar from "./components/ActionBar";
+import Message from "./components/Message";
 
 class App extends Component {
 
 
-
     constructor(props) {
         super(props);
-        this.state = {
-            messages: [],
-            typedMessage: "",
-            name: ""
-        }
+        this.state = this.initialState;
+        this.setName=this.setName.bind(this);
     }
+
+    initialState = {
+        name: ""
+    };
+
 
     setName = (name) => {
         console.log(name);
@@ -28,7 +33,6 @@ class App extends Component {
     sendMessage = () => {
         this.clientRef.sendMessage('/app/user-all', JSON.stringify({
             name: this.state.name,
-            message: this.state.typedMessage
         }));
     };
 
@@ -57,7 +61,7 @@ class App extends Component {
     render() {
         return (
             <div>
-                <NameComponent setName={this.setName}/>
+                {/*<NameComponent setName={this.setName}/>
                 <div className="align-center">
                     <h1>Welcome to Web Sockets</h1>
                     <br/><br/>
@@ -85,7 +89,23 @@ class App extends Component {
                 <br/><br/>
                 <div className="align-center">
                     {this.displayMessages()}
-                </div>
+                </div>*/}
+
+
+                <Router>
+                    <ActionBar/>
+
+                    <Switch>
+                        <Route exact path="/message" component={Message}
+                               name={this.state.name}/>
+                        <Route exact path="/login" component={Login}
+                               setName={this.setName}/>
+                        <Route exact path="/members" component={Members}/>
+                    </Switch>
+
+                </Router>
+
+
                 <SockJsClient url='http://localhost:8080/websocket-chat/'
                               topics={['/topic/user']}
                               onConnect={() => {
@@ -94,11 +114,8 @@ class App extends Component {
                               onDisconnect={() => {
                                   console.log("Disconnected");
                               }}
-                              onMessage={(msg) => {
-                                  let jobs = this.state.messages;
-                                  jobs.push(msg);
-                                  this.setState({messages: jobs});
-                                  console.log(this.state);
+                              onMessage={() => {
+                                  console.log("message");
                               }}
                               ref={(client) => {
                                   this.clientRef = client
