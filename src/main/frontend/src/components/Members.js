@@ -8,6 +8,8 @@ import axios from "axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHandSparkles} from "@fortawesome/free-solid-svg-icons";
 
+import StudentList from "../contoiners/student-list"
+
 
 export default class Members extends Component {
 
@@ -28,7 +30,7 @@ export default class Members extends Component {
 
     render() {
         return (
-            <ul className="list-group">
+           /* <ul className="list-group">
                 <li className="list-group-item d-flex justify-content-between align-items-center">
                     eeeee
                     <FontAwesomeIcon icon={faHandSparkles} />
@@ -43,7 +45,8 @@ export default class Members extends Component {
                         </il>
                     ))
                 }
-            </ul>
+            </ul>*/
+           <StudentList/>
         );
     }
 }

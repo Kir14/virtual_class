@@ -11,13 +11,21 @@ import Members from "./components/Members.js";
 import ActionBar from "./components/ActionBar";
 import Message from "./components/Message";
 
+import {createStore} from "redux"
+import allReducers from "./reducer/Reducer";
+import {Provider} from "react-redux";
+
+
+
+
 class App extends Component {
+
 
 
     constructor(props) {
         super(props);
-        this.state = this.initialState;
-        this.setName=this.setName.bind(this);
+
+
     }
 
     initialState = {
@@ -59,6 +67,8 @@ class App extends Component {
     };
 
     render() {
+        const store = createStore(allReducers);
+
         return (
             <div>
                 {/*<NameComponent setName={this.setName}/>
@@ -91,19 +101,18 @@ class App extends Component {
                     {this.displayMessages()}
                 </div>*/}
 
+                <ActionBar/>
 
-                <Router>
-                    <ActionBar/>
+                <Provider store={store}>
+                    <Router>
+                        <Switch>
+                            <Route  path="/message" component={Message}/>
+                            <Route exact path="/login" component={Login}/>
+                            <Route exact path="/members" component={Members}/>
+                        </Switch>
 
-                    <Switch>
-                        <Route exact path="/message" component={Message}
-                               name={this.state.name}/>
-                        <Route exact path="/login" component={Login}
-                               setName={this.setName}/>
-                        <Route exact path="/members" component={Members}/>
-                    </Switch>
-
-                </Router>
+                    </Router>
+                </Provider>
 
 
                 <SockJsClient url='http://localhost:8080/websocket-chat/'

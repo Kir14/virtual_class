@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 
 
+import StudentList from "../contoiners/student-list"
+
 export default class Message extends Component {
 
     constructor(props) {
@@ -17,7 +19,7 @@ export default class Message extends Component {
                     <br/><br/>
                 </div>
                 <div className="align-center">
-                    User : <p className="title1"> {this.props.name}</p>
+                    User : <p className="title1"> <StudentList/> </p>
                 </div>
 
 
