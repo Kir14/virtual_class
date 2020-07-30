@@ -8,15 +8,6 @@ import java.util.Collection;
 
 public interface Resource<T> {
 
-    @GetMapping
-    ResponseEntity<Collection<T>> All();
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ResponseEntity<T> Add(@RequestBody T t);
-
-
-
-    @DeleteMapping("{id}")
-    ResponseEntity<T> DeleteById(@PathVariable Long id);
 
 }

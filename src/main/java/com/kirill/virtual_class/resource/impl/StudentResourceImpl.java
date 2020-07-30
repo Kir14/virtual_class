@@ -17,21 +17,5 @@ import java.util.Collection;
 @CrossOrigin(origins = "http://localhost:3000")
 public class StudentResourceImpl implements Resource<Student> {
 
-    @Autowired
-    private StudentService studentService;
 
-    @Override
-    public ResponseEntity<Collection<Student>> All() {
-        return new ResponseEntity<>(studentService.All(), HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<Student> Add(Student student) {
-        return new ResponseEntity<>(studentService.Add(student), HttpStatus.CREATED);
-    }
-
-    @Override
-    public ResponseEntity<Student> DeleteById(Long id) {
-        return new ResponseEntity<>(studentService.DeleteById(id), HttpStatus.OK);
-    }
 }

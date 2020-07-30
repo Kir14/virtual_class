@@ -13,7 +13,7 @@ class StudentList extends Component {
             return (
                 <li className="list-group-item d-flex justify-content-between align-items-center"
                     onClick={() => this.props.select(student)}
-                    key={student.id}>
+                    key={student.name}>
                     {student.name}
                     {student.handUp === true ?
                         <FontAwesomeIcon icon={faHandSparkles}/> : ""

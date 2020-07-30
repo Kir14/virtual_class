@@ -8,12 +8,12 @@ import java.util.Collection;
 public interface StudentService {
     Collection<Student> All();
 
-    Student Add(Student stud);
+    Student Add(String name);
 
-    Student DeleteById(Long id);
+    Student DeleteByName(String name);
 
-    Student HandUp(Long id);
+    void HandUp(String name);
 
-    Student HandDown(Long id);
+    void HandDown(String name);
     
 }

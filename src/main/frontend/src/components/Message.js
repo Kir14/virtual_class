@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 
 
-import StudentList from "../contoiners/student-list"
+import StudentList from "../containers/student-list"
 
 export default class Message extends Component {
 

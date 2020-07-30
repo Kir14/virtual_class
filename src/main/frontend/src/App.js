@@ -17,6 +17,10 @@ import {Provider} from "react-redux";
 
 
 
+import ToDo from "./components/all_for_todo/ToDo";
+import student from "./reducer/student";
+
+
 
 class App extends Component {
 
@@ -39,9 +43,8 @@ class App extends Component {
     };
 
     sendMessage = () => {
-        this.clientRef.sendMessage('/app/user-all', JSON.stringify({
-            name: this.state.name,
-        }));
+        console.log(student());
+        this.clientRef.sendMessage('/app/user-all', student());
     };
 
     displayMessages = () => {
@@ -109,26 +112,30 @@ class App extends Component {
                             <Route  path="/message" component={Message}/>
                             <Route exact path="/login" component={Login}/>
                             <Route exact path="/members" component={Members}/>
+                            <Route exact path="/todo" component={ToDo}/>
                         </Switch>
 
                     </Router>
-                </Provider>
 
 
-                <SockJsClient url='http://localhost:8080/websocket-chat/'
+
+                <SockJsClient url='http://localhost:8080/virtual-class/'
                               topics={['/topic/user']}
                               onConnect={() => {
                                   console.log("connected");
+                                  this.sendMessage();
                               }}
                               onDisconnect={() => {
                                   console.log("Disconnected");
                               }}
-                              onMessage={() => {
+                              onMessage={(msg) => {
+                                  this.setState({students: msg});
                                   console.log("message");
                               }}
                               ref={(client) => {
                                   this.clientRef = client
                               }}/>
+                </Provider>
             </div>
 
         );

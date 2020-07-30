@@ -5,57 +5,56 @@ import com.kirill.virtual_class.domain.Student;
 import com.kirill.virtual_class.service.StudentService;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class StudentServiceImpl implements StudentService {
 
-    private  Long studentId = 1L;
-    private Map<Long, Student> studentMap=new HashMap<Long, Student>();
+    private List<Student> students = new ArrayList<>();
 
     {
-        Student stud=new Student();
-        stud.setId(studentId);
-        stud.setName("Kirill");
+        Student stud = new Student();
+        stud.setName("LiriKKK");
         stud.setHandUp(true);
-        studentMap.put(stud.getId(),stud);
+        students.add(stud);
     }
 
 
     @Override
     public Collection<Student> All() {
-        return studentMap.values();
+        return students;
     }
 
     @Override
-    public Student Add(Student stud) {
-        Long newStudentId= ++studentId;
-        stud.setId(newStudentId);
+    public Student Add(String name) {
+        Student stud = new Student();
+        stud.setName(name);
         stud.setHandUp(false);
-        studentMap.put(stud.getId(),stud);
-        return studentMap.get(newStudentId);
+        students.add(stud);
+        return stud;
     }
 
     @Override
-    public Student DeleteById(Long id) {
-        if(studentMap.get(id) != null){
-            studentMap.remove(id);
+    public Student DeleteByName(String name) {
+        for (Student stud : students) {
+            if (stud.getName().equals(name)) {
+                students.remove(stud);
+                return null;
+            }
         }
         return null;
     }
 
     @Override
-    public Student HandUp(Long id) {
-       studentMap.get(id).setHandUp(true);
-       return studentMap.get(id);
+    public void HandUp(String name) {
+        Optional<Student> stud = students.stream().filter(student -> name.equals(student.getName())).findFirst();
+        stud.ifPresent(student -> student.setHandUp(true));
     }
 
     @Override
-    public Student HandDown(Long id) {
-        studentMap.get(id).setHandUp(false);
-        return studentMap.get(id);
+    public void HandDown(String name) {
+        Optional<Student> stud = students.stream().filter(student -> name.equals(student.getName())).findFirst();
+        stud.ifPresent(student -> student.setHandUp(false));
     }
 
 }

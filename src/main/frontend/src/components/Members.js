@@ -8,25 +8,16 @@ import axios from "axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHandSparkles} from "@fortawesome/free-solid-svg-icons";
 
-import StudentList from "../contoiners/student-list"
+import StudentList from "../containers/student-list"
 
 
 export default class Members extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            students: []
-        };
-    }
 
-    componentDidMount() {
-        axios.get("http://localhost:8080/members")
-            .then(response=>response.data)
-            .then((data)=>{
-                this.setState({students: data})
-            });
-    }
+        };
+
 
     render() {
         return (
