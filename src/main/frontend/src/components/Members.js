@@ -1,4 +1,4 @@
-import "./MemberStyle.css";
+import "../style/MemberStyle.css";
 
 import React from 'react';
 import {Component} from "react";
@@ -17,6 +17,7 @@ export default class Members extends Component {
         super(props);
 
         };
+
 
 
     render() {

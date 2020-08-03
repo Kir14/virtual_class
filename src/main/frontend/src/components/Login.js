@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Form} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import "./MemberStyle.css";
+import "../style/MemberStyle.css";
 
 
 class Login extends Component {
@@ -9,7 +9,7 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: "fdsfsd"
+            name: ""
         };
         this.studentChange = this.studentChange.bind(this);
         this.submitStudent = this.submitStudent.bind(this);

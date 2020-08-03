@@ -9,16 +9,14 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Login from "./components/Login.js";
 import Members from "./components/Members.js";
 import ActionBar from "./components/ActionBar";
-import Message from "./components/Message";
+
 
 import {createStore} from "redux"
 import allReducers from "./reducer/Reducer";
-import {Provider} from "react-redux";
+import {connect, Provider} from "react-redux";
 
-
-
-import ToDo from "./components/all_for_todo/ToDo";
 import student from "./reducer/student";
+import {array} from "prop-types";
 
 
 
@@ -44,7 +42,8 @@ class App extends Component {
 
     sendMessage = () => {
         console.log(student());
-        this.clientRef.sendMessage('/app/user-all', student());
+        this.clientRef.sendMessage('/app/user-all', JSON.stringify(student()));
+        console.log(student());
     };
 
     displayMessages = () => {
@@ -109,10 +108,8 @@ class App extends Component {
                 <Provider store={store}>
                     <Router>
                         <Switch>
-                            <Route  path="/message" component={Message}/>
                             <Route exact path="/login" component={Login}/>
                             <Route exact path="/members" component={Members}/>
-                            <Route exact path="/todo" component={ToDo}/>
                         </Switch>
 
                     </Router>
@@ -129,8 +126,8 @@ class App extends Component {
                                   console.log("Disconnected");
                               }}
                               onMessage={(msg) => {
-                                  this.setState({students: msg});
                                   console.log("message");
+                                  this.setState({students: msg});
                               }}
                               ref={(client) => {
                                   this.clientRef = client
@@ -142,4 +139,5 @@ class App extends Component {
     }
 }
 
-export default App;
+
+export default (App);
