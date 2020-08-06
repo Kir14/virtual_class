@@ -2,6 +2,10 @@ import React, {Component} from "react";
 import {Form} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import "../style/MemberStyle.css";
+import {connect} from "react-redux";
+import {userReducer} from "../reducer/user";
+import {bindActionCreators} from "redux";
+import {login} from "../actions";
 
 
 class Login extends Component {
@@ -9,7 +13,7 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: ""
+
         };
         this.studentChange = this.studentChange.bind(this);
         this.submitStudent = this.submitStudent.bind(this);
@@ -24,12 +28,10 @@ class Login extends Component {
     submitStudent = event => {
         event.preventDefault();
 
-        
+        this.props.login(event.target.elements.name.value);
+        console.log(this.props.user);
+        //this.setState(me.name : event.target.elements.name.value);
         //App.setState({name:this.state.name});
-
-        const student = {
-            name: this.state.name
-        };
 
 
         //axios.post("http://localhost:8080/members",student)
@@ -43,7 +45,6 @@ class Login extends Component {
     };
 
     render() {
-        const {name}=this.state;
 
         return (
             <Form onSubmit={this.submitStudent} id="studentFormId">
@@ -51,7 +52,6 @@ class Login extends Component {
                     <Form.Label>Name</Form.Label>
                     <Form.Control required autoComplete="off"
                                   type="name"
-                                  value={name} onChange={this.studentChange}
                                   placeholder="Enter name"
                                   name="name"/>
                     <Form.Text className="text-muted">
@@ -60,7 +60,7 @@ class Login extends Component {
                 </Form.Group>
 
 
-                <Button variant="primary" type="submit" onClick={() => { this.props.setName(this.state.name)}}>
+                <Button variant="primary" type="submit">
                     Submit
                 </Button>
             </Form>
@@ -68,4 +68,16 @@ class Login extends Component {
     }
 }
 
-export default Login
+
+function mapStateToProps(state) {
+    return {
+        user: state.user
+    };
+}
+
+function matchDispatchToProps(dispatch) {
+    return bindActionCreators({login: login}, dispatch)
+}
+
+
+export default connect(mapStateToProps, matchDispatchToProps)(Login)

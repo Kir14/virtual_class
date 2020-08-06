@@ -11,17 +11,12 @@ import Members from "./components/Members.js";
 import ActionBar from "./components/ActionBar";
 
 
-import {createStore} from "redux"
-import allReducers from "./reducer/Reducer";
 import {connect, Provider} from "react-redux";
 
-import student from "./reducer/student";
-import {array} from "prop-types";
 
 
 
 class App extends Component {
-
 
 
     constructor(props) {
@@ -30,9 +25,7 @@ class App extends Component {
 
     }
 
-    initialState = {
-        name: ""
-    };
+
 
 
     setName = (name) => {
@@ -41,103 +34,55 @@ class App extends Component {
     };
 
     sendMessage = () => {
-        console.log(student());
-        this.clientRef.sendMessage('/app/user-all', JSON.stringify(student()));
-        console.log(student());
-    };
-
-    displayMessages = () => {
-        return (
-            <div>
-                {this.state.messages.map(msg => {
-                    return (
-                        <div>
-                            {this.state.name == msg.name ?
-                                <div>
-                                    <p className="title1">{msg.name} : </p><br/>
-                                    <p>{msg.message}</p>
-                                </div> :
-                                <div>
-                                    <p className="title2">{msg.name} : </p><br/>
-                                    <p>{msg.message}</p>
-                                </div>
-                            }
-                        </div>)
-                })}
-            </div>
-        );
+        console.log(this.props.students.students);
+        console.log(this.props.user);
+        this.clientRef.sendMessage('/app/user-all', JSON.stringify(this.props.students.students));
     };
 
     render() {
-        const store = createStore(allReducers);
-
         return (
             <div>
-                {/*<NameComponent setName={this.setName}/>
-                <div className="align-center">
-                    <h1>Welcome to Web Sockets</h1>
-                    <br/><br/>
-                </div>
-                <div className="align-center">
-                    User : <p className="title1"> {this.state.name}</p>
-                </div>
-                <div className="align-center">
-                    <br/><br/>
-                    <table>
-                        <tr>
-                            <td>
-                                <TextField id="outlined-basic" label="Enter Message to Send" variant="outlined"
-                                           onChange={(event) => {
-                                               this.setState({typedMessage: event.target.value});
-                                           }}/>
-                            </td>
-                            <td>
-                                <Button variant="contained" color="primary"
-                                        onClick={this.sendMessage}>Send</Button>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <br/><br/>
-                <div className="align-center">
-                    {this.displayMessages()}
-                </div>*/}
 
                 <ActionBar/>
 
-                <Provider store={store}>
+                <div >
                     <Router>
                         <Switch>
-                            <Route exact path="/login" component={Login}/>
+                            <Route exact path="/login" component={Login} />
                             <Route exact path="/members" component={Members}/>
                         </Switch>
 
                     </Router>
 
 
-
-                <SockJsClient url='http://localhost:8080/virtual-class/'
-                              topics={['/topic/user']}
-                              onConnect={() => {
-                                  console.log("connected");
-                                  this.sendMessage();
-                              }}
-                              onDisconnect={() => {
-                                  console.log("Disconnected");
-                              }}
-                              onMessage={(msg) => {
-                                  console.log("message");
-                                  this.setState({students: msg});
-                              }}
-                              ref={(client) => {
-                                  this.clientRef = client
-                              }}/>
-                </Provider>
+                    <SockJsClient url='http://localhost:8080/virtual-class/'
+                                  topics={['/topic/user']}
+                                  onConnect={() => {
+                                      console.log("connected");
+                                      this.sendMessage();
+                                  }}
+                                  onDisconnect={() => {
+                                      console.log("Disconnected");
+                                  }}
+                                  onMessage={(msg) => {
+                                      console.log("message");
+                                      this.setState({students: msg});
+                                  }}
+                                  ref={(client) => {
+                                      this.clientRef = client
+                                  }}/>
+                </div>
             </div>
 
         );
     }
 }
 
+function mapStateToProps(state) {
+    return {
+        students: state.students,
+        user:state.user
+    };
+}
 
-export default (App);
+export default connect(mapStateToProps)(App);

@@ -1,7 +1,7 @@
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import React from "react";
+import React, {Component} from "react";
 import Members from "./Members";
 import {
     BrowserRouter as Router,
@@ -13,32 +13,53 @@ import {
 } from "react-router-dom";
 import Login from "./Login";
 
+import {bindActionCreators} from "redux";
+import {handUpDown} from "../actions";
+import {connect} from "react-redux";
 
-export default function ActionBar() {
-    return (
-        <Router>
-            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
-                        <NavDropdown title="Action" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1">Hands up</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">Hand down</NavDropdown.Item>
-                        </NavDropdown>
-                    </Nav>
-                    <Nav className="ml-auto">
-                        <NavDropdown title="Account" id="basic-nav-dropdown">
-                            <NavDropdown.Item>
-                                <Link to={"login"}>Login</Link>
-                            </NavDropdown.Item>
 
-                            <NavDropdown.Item>
-                                <Link to={"members"}>Mems</Link>
-                            </NavDropdown.Item>
-                        </NavDropdown>
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>
-        </Router>
-    )
+class ActionBar extends Component {
 
+    render() {
+        return (
+            <Router>
+                <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="mr-auto">
+                            <NavDropdown title="Action" id="basic-nav-dropdown">
+                                <NavDropdown.Item onClick={() => this.props.handUpDown(this.user)}>Hands up</NavDropdown.Item>
+                                <NavDropdown.Item onClick={() => this.props.handUpDown(this.user)}>Hand down</NavDropdown.Item>
+                            </NavDropdown>
+                        </Nav>
+                        <Nav className="ml-auto">
+                            <NavDropdown title="Account" id="basic-nav-dropdown">
+                                <NavDropdown.Item>
+                                    <Link to={"login"}>Login</Link>
+                                </NavDropdown.Item>
+
+                                <NavDropdown.Item>
+                                    <Link to={"members"}>Mems</Link>
+                                </NavDropdown.Item>
+                            </NavDropdown>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Navbar>
+            </Router>
+        )
+    }
 }
+
+
+
+function mapStateToProps(state) {
+    return {
+        user: state.user
+    };
+}
+
+function matchDispatchToProps(dispatch) {
+    return bindActionCreators({handUpDown: handUpDown}, dispatch)
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(ActionBar);
+
