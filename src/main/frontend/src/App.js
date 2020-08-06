@@ -3,35 +3,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import React, {Component} from 'react';
 import SockJsClient from 'react-stomp';
-
-
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Login from "./components/Login.js";
 import Members from "./components/Members.js";
 import ActionBar from "./components/ActionBar";
-
-
-import {connect, Provider} from "react-redux";
-
-
+import {connect} from "react-redux";
 
 
 class App extends Component {
 
-
     constructor(props) {
         super(props);
-
-
     }
-
-
-
-
-    setName = (name) => {
-        console.log(name);
-        this.setState({name: name});
-    };
 
     sendMessage = () => {
         console.log(this.props.students.students);
@@ -42,18 +25,14 @@ class App extends Component {
     render() {
         return (
             <div>
-
                 <ActionBar/>
-
                 <div >
                     <Router>
                         <Switch>
                             <Route exact path="/login" component={Login} />
                             <Route exact path="/members" component={Members}/>
                         </Switch>
-
                     </Router>
-
 
                     <SockJsClient url='http://localhost:8080/virtual-class/'
                                   topics={['/topic/user']}
@@ -73,7 +52,6 @@ class App extends Component {
                                   }}/>
                 </div>
             </div>
-
         );
     }
 }

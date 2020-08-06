@@ -21,7 +21,7 @@ public class StudentServiceImpl implements StudentService {
 
 
     @Override
-    public Collection<Student> All() {
+    public List<Student> All() {
         return students;
     }
 

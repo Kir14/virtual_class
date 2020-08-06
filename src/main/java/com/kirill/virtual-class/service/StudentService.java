@@ -3,10 +3,10 @@ package com.kirill.virtual_class.service;
 
 import com.kirill.virtual_class.domain.Student;
 
-import java.util.Collection;
+import java.util.List;
 
 public interface StudentService {
-    Collection<Student> All();
+    List<Student> All();
 
     Student Add(String name);
 

@@ -7,7 +7,7 @@ export function userReducer(state = initialState, action) {
     switch (action.type) {
 
         case "HAND_UP_DOWN":
-            alert("eeey man this HAND_Up-Down");
+            alert("this HAND_Up-Down");
             return {...state};
 
         case "LOGIN":

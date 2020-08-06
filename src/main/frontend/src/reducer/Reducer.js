@@ -1,5 +1,5 @@
 import {combineReducers} from "redux";
-import {membersReducer} from "./student";
+import {membersReducer} from "./students";
 import {userReducer} from "./user"
 
 

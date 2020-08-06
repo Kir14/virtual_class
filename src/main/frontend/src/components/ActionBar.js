@@ -2,17 +2,10 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import React, {Component} from "react";
-import Members from "./Members";
 import {
     BrowserRouter as Router,
-    Route,
     Link,
-    Switch,
-    Redirect,
-    useLocation
 } from "react-router-dom";
-import Login from "./Login";
-
 import {bindActionCreators} from "redux";
 import {handUpDown} from "../actions";
 import {connect} from "react-redux";
@@ -27,8 +20,10 @@ class ActionBar extends Component {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
                             <NavDropdown title="Action" id="basic-nav-dropdown">
-                                <NavDropdown.Item onClick={() => this.props.handUpDown(this.user)}>Hands up</NavDropdown.Item>
-                                <NavDropdown.Item onClick={() => this.props.handUpDown(this.user)}>Hand down</NavDropdown.Item>
+                                <NavDropdown.Item onClick={() => this.props.handUpDown(this.user)}>Hands
+                                    up</NavDropdown.Item>
+                                <NavDropdown.Item onClick={() => this.props.handUpDown(this.user)}>Hand
+                                    down</NavDropdown.Item>
                             </NavDropdown>
                         </Nav>
                         <Nav className="ml-auto">
@@ -36,7 +31,6 @@ class ActionBar extends Component {
                                 <NavDropdown.Item>
                                     <Link to={"login"}>Login</Link>
                                 </NavDropdown.Item>
-
                                 <NavDropdown.Item>
                                     <Link to={"members"}>Mems</Link>
                                 </NavDropdown.Item>
@@ -48,7 +42,6 @@ class ActionBar extends Component {
         )
     }
 }
-
 
 
 function mapStateToProps(state) {

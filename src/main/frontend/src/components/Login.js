@@ -3,7 +3,6 @@ import {Form} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import "../style/MemberStyle.css";
 import {connect} from "react-redux";
-import {userReducer} from "../reducer/user";
 import {bindActionCreators} from "redux";
 import {login} from "../actions";
 
@@ -12,30 +11,16 @@ class Login extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-
-        };
+        this.state = {};
         this.studentChange = this.studentChange.bind(this);
         this.submitStudent = this.submitStudent.bind(this);
-
-
     }
 
-    initialState = {
-        name: ""
-    };
 
     submitStudent = event => {
         event.preventDefault();
-
         this.props.login(event.target.elements.name.value);
         console.log(this.props.user);
-        //this.setState(me.name : event.target.elements.name.value);
-        //App.setState({name:this.state.name});
-
-
-        //axios.post("http://localhost:8080/members",student)
-
     };
 
     studentChange = event => {
@@ -45,9 +30,9 @@ class Login extends Component {
     };
 
     render() {
-
         return (
             <Form onSubmit={this.submitStudent} id="studentFormId">
+
                 <Form.Group controlId="formName">
                     <Form.Label>Name</Form.Label>
                     <Form.Control required autoComplete="off"
@@ -78,6 +63,5 @@ function mapStateToProps(state) {
 function matchDispatchToProps(dispatch) {
     return bindActionCreators({login: login}, dispatch)
 }
-
 
 export default connect(mapStateToProps, matchDispatchToProps)(Login)

@@ -16,7 +16,7 @@ export function membersReducer(state = initialState, action) {
     switch (action.type) {
 
         case "STUDENT_SELECTED":
-            alert("ou boy " + action.payload.name);
+            alert("Select " + action.payload.name);
             return state;
 
         default:
