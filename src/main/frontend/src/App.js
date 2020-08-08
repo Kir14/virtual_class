@@ -8,6 +8,8 @@ import Login from "./components/Login.js";
 import Members from "./components/Members.js";
 import ActionBar from "./components/ActionBar";
 import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import {newMass} from "./actions";
 
 
 class App extends Component {
@@ -16,28 +18,32 @@ class App extends Component {
         super(props);
     }
 
-    sendMessage = () => {
-        console.log(this.props.students.students);
-        console.log(this.props.user);
-        this.clientRef.sendMessage('/app/user-all', JSON.stringify(this.props.students.students));
-    };
+    /*sendMessage = () => {
+        this.clientRef.sendMessage('/app/user-all', JSON.stringify(this.props.user));
+    };*/
 
     render() {
         return (
             <div>
                 <ActionBar/>
                 <div >
-                    <Router>
+
+                    {/*<Router>
                         <Switch>
                             <Route exact path="/login" component={Login} />
                             <Route exact path="/members" component={Members}/>
                         </Switch>
-                    </Router>
+                    </Router>*/}
 
-                    <SockJsClient url='http://localhost:8080/virtual-class/'
+                    {this.props.user.name === "" ?
+                        <Login /> : <Members/>}
+
+
+                    {/*<SockJsClient url='http://localhost:8080/virtual-class/'
                                   topics={['/topic/user']}
                                   onConnect={() => {
                                       console.log("connected");
+
                                       this.sendMessage();
                                   }}
                                   onDisconnect={() => {
@@ -45,11 +51,13 @@ class App extends Component {
                                   }}
                                   onMessage={(msg) => {
                                       console.log("message");
-                                      this.setState({students: msg});
+                                      console.log(msg);
+                                      this.props.newMass(msg);
+
                                   }}
                                   ref={(client) => {
                                       this.clientRef = client
-                                  }}/>
+                                  }}/>*/}
                 </div>
             </div>
         );
@@ -63,4 +71,8 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(App);
+function matchDispatchToProps(dispatch) {
+    return bindActionCreators({newMass: newMass}, dispatch)
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(App);

@@ -11,7 +11,9 @@ export function userReducer(state = initialState, action) {
             return {...state};
 
         case "LOGIN":
-            alert("login " + action.payload);
+            return {...state, name: action.payload};
+
+        case "LOGOUT":
             return {...state, name: action.payload};
 
         default:

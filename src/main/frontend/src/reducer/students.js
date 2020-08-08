@@ -19,6 +19,9 @@ export function membersReducer(state = initialState, action) {
             alert("Select " + action.payload.name);
             return state;
 
+        case "NEW_MASS":
+            return {...state, students: action.payload};
+
         default:
             return state
     }

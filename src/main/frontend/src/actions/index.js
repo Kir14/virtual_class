@@ -6,11 +6,10 @@ export  const select = (student) => {
     }
 };
 
-export const setName = (name) =>{
-    alert("name: " + name);
+export const newMass = (students) => {
     return{
-        type: "STUDENT_LOGIN",
-        payload: name
+        type: "NEW_MASS",
+        payload: students
     }
 };
 
@@ -25,5 +24,12 @@ export const login = (name) => {
     return{
         type: "LOGIN",
         payload: name
+    }
+};
+
+export const logout = () => {
+    return{
+        type: "LOGOUT",
+        payload: ""
     }
 };

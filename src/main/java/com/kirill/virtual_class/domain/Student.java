@@ -5,7 +5,7 @@ public class Student {
     private String name;
     private Boolean handUp;
 
-   /* public enum MessageType {
+    /*public enum MessageType {
         HAND_UP_DOWN,
         JOIN,
         LEAVE

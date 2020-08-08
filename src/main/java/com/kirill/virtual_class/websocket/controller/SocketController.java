@@ -12,9 +12,13 @@ import java.util.List;
 @Controller
 public class SocketController {
 
+    Service students = new Service();
+
+
     @MessageMapping("/user-all")
     @SendTo("/topic/user")
-    public List<Student> send(@Payload Service students) {
+    public List<Student> send(@Payload Student student) {
+        students.addStudent(student);
         return students.getStudents();
     }
 

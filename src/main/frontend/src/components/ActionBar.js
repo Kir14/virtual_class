@@ -7,11 +7,17 @@ import {
     Link,
 } from "react-router-dom";
 import {bindActionCreators} from "redux";
-import {handUpDown} from "../actions";
+import {handUpDown, logout} from "../actions";
 import {connect} from "react-redux";
+import Button from "react-bootstrap/Button";
+import {DropdownButton, Dropdown} from "react-bootstrap";
 
 
 class ActionBar extends Component {
+
+    Logout=()=>{
+        this.props.logout();
+    };
 
     render() {
         return (
@@ -20,22 +26,31 @@ class ActionBar extends Component {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
                             <NavDropdown title="Action" id="basic-nav-dropdown">
-                                <NavDropdown.Item onClick={() => this.props.handUpDown(this.user)}>Hands
+                                <NavDropdown.Item onClick={() => this.props.handUpDown(this.props.user)}>Hands
                                     up</NavDropdown.Item>
-                                <NavDropdown.Item onClick={() => this.props.handUpDown(this.user)}>Hand
+                                <NavDropdown.Item onClick={() => this.props.handUpDown(this.props.user)}>Hand
                                     down</NavDropdown.Item>
                             </NavDropdown>
                         </Nav>
-                        <Nav className="ml-auto">
-                            <NavDropdown title="Account" id="basic-nav-dropdown">
+                        {/*<Nav className="ml-auto">
+                            <NavDropdown title={this.props.user.name} id="basic-nav-dropdown">
                                 <NavDropdown.Item>
-                                    <Link to={"login"}>Login</Link>
+                                    <Button  type="submit">
+                                        Logout
+                                    </Button>
                                 </NavDropdown.Item>
-                                <NavDropdown.Item>
-                                    <Link to={"members"}>Mems</Link>
-                                </NavDropdown.Item>
+
                             </NavDropdown>
-                        </Nav>
+                        </Nav>*/}
+
+                        <DropdownButton
+                            alignRight
+                            title={this.props.user.name}
+                            id="dropdown-menu-align-right"
+                        >
+                            <Dropdown.Item onClick={this.Logout}>Logout</Dropdown.Item>
+
+                        </DropdownButton>
                     </Navbar.Collapse>
                 </Navbar>
             </Router>
@@ -51,8 +66,10 @@ function mapStateToProps(state) {
 }
 
 function matchDispatchToProps(dispatch) {
-    return bindActionCreators({handUpDown: handUpDown}, dispatch)
+    return bindActionCreators({handUpDown: handUpDown, logout: logout}, dispatch)
 }
+
+
 
 export default connect(mapStateToProps, matchDispatchToProps)(ActionBar);
 

@@ -4,6 +4,7 @@ import com.kirill.virtual_class.domain.Student;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Service {
 
@@ -24,5 +25,9 @@ public class Service {
 
     public void deleteStudent(Student student) {
         students.remove(student);
+    }
+
+    public void changeStudent(Student student) {
+       students.get(students.indexOf(student)).setHandUp(!student.getHandUp());
     }
 }
