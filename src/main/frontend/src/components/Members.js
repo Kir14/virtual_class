@@ -4,15 +4,12 @@ import React from 'react';
 import {Component} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import axios from "axios";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faHandSparkles} from "@fortawesome/free-solid-svg-icons";
-
 import StudentList from "../containers/student-list"
 import SockJsClient from "react-stomp";
 import {bindActionCreators} from "redux";
-import {newMass} from "../actions";
+import {newMass, setTypeMessage} from "../actions";
 import {connect} from "react-redux";
+import ActionBar from "./ActionBar";
 
 
 class Members extends Component {
@@ -23,33 +20,33 @@ class Members extends Component {
 
 
     sendMessage = () => {
+        this.props.setTypeMessage("JOIN");
         this.clientRef.sendMessage('/app/user-all', JSON.stringify(this.props.user));
     };
 
     render() {
         return (
             <div>
-            <SockJsClient url='http://localhost:8080/virtual-class/'
-                          topics={['/topic/user']}
-                          onConnect={() => {
-                              console.log("connected");
+                <ActionBar client={this.clientRef} />
+                <SockJsClient url='http://localhost:8080/virtual-class/'
+                              topics={['/topic/user']}
+                              onConnect={() => {
+                                  console.log("connected");
+                                  this.sendMessage();
+                              }}
+                              onDisconnect={() => {
+                                  console.log("Disconnected");
+                              }}
+                              onMessage={(students) => {
+                                  console.log("message");
+                                  this.props.newMass(students);
 
-                              this.sendMessage();
-                          }}
-                          onDisconnect={() => {
-                              console.log("Disconnected");
-                          }}
-                          onMessage={(msg) => {
-                              console.log("message");
-                              console.log(msg);
-                              this.props.newMass(msg);
+                              }}
+                              ref={(client) => {
+                                  this.clientRef = client
+                              }}/>
 
-                          }}
-                          ref={(client) => {
-                              this.clientRef = client
-                          }}/>
-
-            <StudentList/>
+                <StudentList/>
             </div>
         );
     }
@@ -59,12 +56,12 @@ class Members extends Component {
 function mapStateToProps(state) {
     return {
         students: state.students,
-        user:state.user
+        user: state.user
     };
 }
 
 function matchDispatchToProps(dispatch) {
-    return bindActionCreators({newMass: newMass}, dispatch)
+    return bindActionCreators({newMass: newMass, setTypeMessage: setTypeMessage}, dispatch)
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(Members);

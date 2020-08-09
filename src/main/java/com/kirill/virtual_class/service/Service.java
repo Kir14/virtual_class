@@ -28,6 +28,14 @@ public class Service {
     }
 
     public void changeStudent(Student student) {
-       students.get(students.indexOf(student)).setHandUp(!student.getHandUp());
+        int i=0;
+        while (true){
+            if(students.get(i).getName().equals(student.getName())){
+                break;
+            }
+            i++;
+        }
+        boolean handUp = !student.getHandUp();
+        students.get(i).setHandUp(handUp);
     }
 }

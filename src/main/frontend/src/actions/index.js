@@ -13,10 +13,17 @@ export const newMass = (students) => {
     }
 };
 
-export const handUpDown = (handUp) => {
+export const handUpDown = (handUpDown) => {
     return{
         type: "HAND_UP_DOWN",
-        payload: handUp
+        payload: handUpDown
+    }
+};
+
+export const setTypeMessage = (type) => {
+    return{
+        type: "TYPE_MESSAGE",
+        payload: type
     }
 };
 

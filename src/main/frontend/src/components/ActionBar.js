@@ -1,37 +1,57 @@
 import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
-import NavDropdown from "react-bootstrap/NavDropdown";
 import React, {Component} from "react";
-import {
-    BrowserRouter as Router,
-    Link,
-} from "react-router-dom";
+
 import {bindActionCreators} from "redux";
-import {handUpDown, logout} from "../actions";
+import {handUpDown, logout, setTypeMessage} from "../actions";
 import {connect} from "react-redux";
-import Button from "react-bootstrap/Button";
 import {DropdownButton, Dropdown} from "react-bootstrap";
+import SockJsClient from "react-stomp";
 
 
 class ActionBar extends Component {
 
     Logout=()=>{
+        this.props.setTypeMessage("LEAVE");
+        this.props.client.sendMessage('/app/user-all', JSON.stringify(this.props.user));
         this.props.logout();
+        this.props.client.disconnect();
+    };
+
+    HandUpDown=()=>{
+        this.props.setTypeMessage("HAND_UP_DOWN");
+        this.props.client.sendMessage('/app/user-all', JSON.stringify(this.props.user));
+        this.props.handUpDown(this.props.user.handUp);
     };
 
     render() {
         return (
-            <Router>
+            <div>
                 <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
                     <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className="mr-auto">
+
+                        <DropdownButton className="mr-auto"
+                            alignLeft
+                            title="Action"
+                            id="dropdown-menu-align-left"
+                        >
+                            <Dropdown.Item onClick={this.HandUpDown}>
+                                {
+                                    (this.props.user.handUp===true)?
+                                        "HandDown" : "HandUp"
+                                }
+                            </Dropdown.Item>
+
+                        </DropdownButton>
+
+                       {/* <Nav className="mr-auto">
                             <NavDropdown title="Action" id="basic-nav-dropdown">
                                 <NavDropdown.Item onClick={() => this.props.handUpDown(this.props.user)}>Hands
                                     up</NavDropdown.Item>
                                 <NavDropdown.Item onClick={() => this.props.handUpDown(this.props.user)}>Hand
                                     down</NavDropdown.Item>
                             </NavDropdown>
-                        </Nav>
+                        </Nav>*/}
+
                         {/*<Nav className="ml-auto">
                             <NavDropdown title={this.props.user.name} id="basic-nav-dropdown">
                                 <NavDropdown.Item>
@@ -53,7 +73,8 @@ class ActionBar extends Component {
                         </DropdownButton>
                     </Navbar.Collapse>
                 </Navbar>
-            </Router>
+
+            </div>
         )
     }
 }
@@ -66,7 +87,10 @@ function mapStateToProps(state) {
 }
 
 function matchDispatchToProps(dispatch) {
-    return bindActionCreators({handUpDown: handUpDown, logout: logout}, dispatch)
+    return bindActionCreators({
+        handUpDown: handUpDown,
+        logout: logout,
+        setTypeMessage: setTypeMessage}, dispatch)
 }
 
 

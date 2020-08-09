@@ -18,7 +18,18 @@ public class SocketController {
     @MessageMapping("/user-all")
     @SendTo("/topic/user")
     public List<Student> send(@Payload Student student) {
-        students.addStudent(student);
+
+        switch (student.getType()){
+            case HAND_UP_DOWN:
+                students.changeStudent(student);
+                break;
+            case JOIN:
+                students.addStudent(student);
+                break;
+            case LEAVE:
+                students.deleteStudent(student);
+                break;
+        }
         return students.getStudents();
     }
 

@@ -2,11 +2,8 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import React, {Component} from 'react';
-import SockJsClient from 'react-stomp';
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Login from "./components/Login.js";
 import Members from "./components/Members.js";
-import ActionBar from "./components/ActionBar";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {newMass} from "./actions";
@@ -25,8 +22,8 @@ class App extends Component {
     render() {
         return (
             <div>
-                <ActionBar/>
-                <div >
+
+                <div>
 
                     {/*<Router>
                         <Switch>
@@ -36,7 +33,7 @@ class App extends Component {
                     </Router>*/}
 
                     {this.props.user.name === "" ?
-                        <Login /> : <Members/>}
+                        <Login/> : <Members/>}
 
 
                     {/*<SockJsClient url='http://localhost:8080/virtual-class/'
@@ -67,7 +64,7 @@ class App extends Component {
 function mapStateToProps(state) {
     return {
         students: state.students,
-        user:state.user
+        user: state.user
     };
 }
 
