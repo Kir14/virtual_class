@@ -27,7 +27,7 @@ class Members extends Component {
     render() {
         return (
             <div>
-                <ActionBar client={this.clientRef} />
+                <ActionBar client={this.clientRef}/>
                 <SockJsClient url='http://localhost:8080/virtual-class/'
                               topics={['/topic/user']}
                               onConnect={() => {

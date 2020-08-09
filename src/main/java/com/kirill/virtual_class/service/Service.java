@@ -28,9 +28,9 @@ public class Service {
     }
 
     public void changeStudent(Student student) {
-        int i=0;
-        while (true){
-            if(students.get(i).getName().equals(student.getName())){
+        int i = 0;
+        while (true) {
+            if (students.get(i).getName().equals(student.getName())) {
                 break;
             }
             i++;

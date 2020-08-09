@@ -19,7 +19,7 @@ public class SocketController {
     @SendTo("/topic/user")
     public List<Student> send(@Payload Student student) {
 
-        switch (student.getType()){
+        switch (student.getType()) {
             case HAND_UP_DOWN:
                 students.changeStudent(student);
                 break;
