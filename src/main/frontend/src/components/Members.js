@@ -27,12 +27,12 @@ class Members extends Component {
     render() {
         return (
             <div>
-                <ActionBar client={this.clientRef}/>
-                <SockJsClient url='http://localhost:8080/virtual-class/'
+                <ActionBar client={this.props.client}/>
+                {/*<SockJsClient url='http://localhost:8080/virtual-class/'
                               topics={['/topic/user']}
                               onConnect={() => {
                                   console.log("connected");
-                                  this.sendMessage();
+
                               }}
                               onDisconnect={() => {
                                   console.log("Disconnected");
@@ -44,7 +44,7 @@ class Members extends Component {
                               }}
                               ref={(client) => {
                                   this.clientRef = client
-                              }}/>
+                              }}/>*/}
 
                 <StudentList/>
             </div>

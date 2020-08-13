@@ -24,6 +24,9 @@ public class SocketController {
                 students.changeStudent(student);
                 break;
             case JOIN:
+                if (students.findStudent(student) == null) {
+                    return null;
+                }
                 students.addStudent(student);
                 break;
             case LEAVE:

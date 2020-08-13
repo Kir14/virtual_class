@@ -7,12 +7,14 @@ import Members from "./components/Members.js";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {newMass} from "./actions";
+import SockJsClient from "react-stomp";
 
 
 class App extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {LoginSuccess: ""};
     }
 
     /*sendMessage = () => {
@@ -22,9 +24,7 @@ class App extends Component {
     render() {
         return (
             <div>
-
                 <div>
-
                     {/*<Router>
                         <Switch>
                             <Route exact path="/login" component={Login} />
@@ -33,28 +33,25 @@ class App extends Component {
                     </Router>*/}
 
                     {this.props.user.name === "" ?
-                        <Login/> : <Members/>}
+                        <Login LoginSuccess={this.state.LoginSuccess}/> : <Members client={this.clientRef}/>}
 
 
-                    {/*<SockJsClient url='http://localhost:8080/virtual-class/'
+                    <SockJsClient url='http://localhost:8080/virtual-class/'
                                   topics={['/topic/user']}
                                   onConnect={() => {
                                       console.log("connected");
 
-                                      this.sendMessage();
                                   }}
                                   onDisconnect={() => {
                                       console.log("Disconnected");
                                   }}
-                                  onMessage={(msg) => {
+                                  onMessage={(students) => {
                                       console.log("message");
-                                      console.log(msg);
-                                      this.props.newMass(msg);
-
+                                      this.props.newMass(students);
                                   }}
                                   ref={(client) => {
                                       this.clientRef = client
-                                  }}/>*/}
+                                  }}/>
                 </div>
             </div>
         );

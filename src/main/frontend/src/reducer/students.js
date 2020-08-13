@@ -1,14 +1,5 @@
 const initialState = {
-    students: [
-        {
-            name: "Kirill",
-            handUp: false
-        },
-        {
-            name: "Kiri4",
-            handUp: true
-        }
-    ]
+    students: []
 };
 
 export function membersReducer(state = initialState, action) {

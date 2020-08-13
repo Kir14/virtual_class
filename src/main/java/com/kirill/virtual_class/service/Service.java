@@ -24,18 +24,40 @@ public class Service {
     }
 
     public void deleteStudent(Student student) {
-        students.remove(student);
-    }
 
-    public void changeStudent(Student student) {
-        int i = 0;
+        for (Student stud : students) {
+            if (stud.getName().equals(student.getName())) {
+                students.remove(stud);
+                return;
+            }
+        }
+
+        /*int i = 0;
         while (true) {
             if (students.get(i).getName().equals(student.getName())) {
                 break;
             }
             i++;
         }
-        boolean handUp = !student.getHandUp();
-        students.get(i).setHandUp(handUp);
+        students.remove(i);*/
+        //students.remove(student);
+    }
+
+    public void changeStudent(Student student) {
+        for (Student stud : students) {
+            if (stud.getName().equals(student.getName())) {
+                stud.setHandUp(!student.getHandUp());
+                return;
+            }
+        }
+    }
+
+
+    public List<Student> findStudent(Student student) {
+        Optional<Student> stud = students.stream().filter(x -> x.getName().equals(student.getName())).findFirst();
+        if(stud.isPresent()){
+            return null;
+        }
+        return students;
     }
 }
