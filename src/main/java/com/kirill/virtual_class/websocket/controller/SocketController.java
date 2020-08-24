@@ -24,26 +24,27 @@ public class SocketController {
                 students.changeStudent(student);
                 break;
             case JOIN:
-                if (students.findStudent(student) == null) {
+                /*if (students.findStudent(student) != null) {
                     return null;
-                }
+                }*/
                 students.addStudent(student);
                 break;
             case LEAVE:
                 students.deleteStudent(student);
                 break;
+            default: return students.getStudents();
         }
         return students.getStudents();
     }
 
-   /* @MessageMapping("/chat.sendMessage")
-    @SendTo("/topic/public")
-    public Student sendMessage(@Payload Student chatMessage) {
-        return chatMessage;
+    @MessageMapping("/login")
+    @SendTo("/topic/user")
+    public Student sendMessage(@Payload Student recForId) {
+        return recForId;
     }
 
 
-    @MessageMapping("/chat.addUser")
+    /*@MessageMapping("/chat.addUser")
     @SendTo("/topic/public")
     public Student addUser(@Payload Student student,
                                SimpMessageHeaderAccessor headerAccessor) {

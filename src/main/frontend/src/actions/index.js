@@ -20,6 +20,13 @@ export const handUpDown = (handUpDown) => {
     }
 };
 
+export const isChange = (bool) => {
+    return{
+        type: "isChange",
+        payload: bool
+    }
+};
+
 export const setTypeMessage = (type) => {
     return{
         type: "TYPE_MESSAGE",

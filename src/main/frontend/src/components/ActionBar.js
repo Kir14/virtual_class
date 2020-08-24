@@ -13,11 +13,11 @@ class ActionBar extends Component {
         this.props.setTypeMessage("LEAVE");
         this.props.client.sendMessage('/app/user-all', JSON.stringify(this.props.user));
         this.props.logout();
-        this.props.client.disconnect();
     };
 
     HandUpDown = () => {
         this.props.setTypeMessage("HAND_UP_DOWN");
+        console.log(this.props.user);
         this.props.client.sendMessage('/app/user-all', JSON.stringify(this.props.user));
         this.props.handUpDown(this.props.user.handUp);
     };
@@ -51,7 +51,7 @@ class ActionBar extends Component {
 
                         <Nav className="mr-auto">
                             <NavDropdown
-                                alignLeft
+
                                 title="Action"
                                 id="basic-nav-dropdown">
                                 <NavDropdown.Item onClick={this.HandUpDown}>

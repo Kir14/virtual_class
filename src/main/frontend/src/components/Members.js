@@ -19,11 +19,6 @@ class Members extends Component {
     };
 
 
-    sendMessage = () => {
-        this.props.setTypeMessage("JOIN");
-        this.clientRef.sendMessage('/app/user-all', JSON.stringify(this.props.user));
-    };
-
     render() {
         return (
             <div>

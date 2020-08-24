@@ -1,9 +1,21 @@
 package com.kirill.virtual_class.domain;
 
 public class Student {
+    //id   uuid
+    //redis
+    //front
+    private int uuid;
     private MessageType type;
     private String name;
     private Boolean handUp;
+
+    public int getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(int uuid) {
+        this.uuid = uuid;
+    }
 
     public enum MessageType {
         HAND_UP_DOWN,

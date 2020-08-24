@@ -6,7 +6,7 @@ import Login from "./components/Login.js";
 import Members from "./components/Members.js";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import {newMass} from "./actions";
+import {newMass, setTypeMessage} from "./actions";
 import SockJsClient from "react-stomp";
 
 
@@ -17,13 +17,31 @@ class App extends Component {
         this.state = {LoginSuccess: ""};
     }
 
-    /*sendMessage = () => {
+    sendMessage = () => {
         this.clientRef.sendMessage('/app/user-all', JSON.stringify(this.props.user));
-    };*/
+    };
 
     render() {
         return (
             <div>
+
+                <SockJsClient url='http://localhost:8080/virtual-class/'
+                              topics={['/topic/user']}
+                              onConnect={() => {
+                                  console.log("connected");
+
+                              }}
+                              onDisconnect={() => {
+                                  console.log("Disconnected");
+                              }}
+                              onMessage={(students) => {
+                                  console.log("message");
+                                  this.props.newMass(students);
+                              }}
+                              ref={(client) => {
+                                  this.clientRef = client
+                              }}/>
+
                 <div>
                     {/*<Router>
                         <Switch>
@@ -33,25 +51,10 @@ class App extends Component {
                     </Router>*/}
 
                     {this.props.user.name === "" ?
-                        <Login LoginSuccess={this.state.LoginSuccess}/> : <Members client={this.clientRef}/>}
+                        <Login client={this.clientRef}
+                        sendMessage={this.sendMessage}/>
+                        : <Members client={this.clientRef}/>}
 
-
-                    <SockJsClient url='http://localhost:8080/virtual-class/'
-                                  topics={['/topic/user']}
-                                  onConnect={() => {
-                                      console.log("connected");
-
-                                  }}
-                                  onDisconnect={() => {
-                                      console.log("Disconnected");
-                                  }}
-                                  onMessage={(students) => {
-                                      console.log("message");
-                                      this.props.newMass(students);
-                                  }}
-                                  ref={(client) => {
-                                      this.clientRef = client
-                                  }}/>
                 </div>
             </div>
         );
@@ -66,7 +69,7 @@ function mapStateToProps(state) {
 }
 
 function matchDispatchToProps(dispatch) {
-    return bindActionCreators({newMass: newMass}, dispatch)
+    return bindActionCreators({newMass: newMass, setTypeMessage: setTypeMessage}, dispatch)
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(App);

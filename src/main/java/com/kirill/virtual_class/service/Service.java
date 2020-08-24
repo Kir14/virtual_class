@@ -9,6 +9,7 @@ import java.util.Optional;
 public class Service {
 
     private List<Student> students = new ArrayList<>();
+    private int id_count=0;
 
 
     public List<Student> getStudents() {
@@ -19,12 +20,14 @@ public class Service {
         this.students = students;
     }
 
-    public void addStudent(Student student) {
+    public int addStudent(Student student) {
+        id_count++;
+        student.setUuid(id_count);
         students.add(student);
+        return id_count;
     }
 
     public void deleteStudent(Student student) {
-
         for (Student stud : students) {
             if (stud.getName().equals(student.getName())) {
                 students.remove(stud);
@@ -54,10 +57,17 @@ public class Service {
 
 
     public List<Student> findStudent(Student student) {
-        Optional<Student> stud = students.stream().filter(x -> x.getName().equals(student.getName())).findFirst();
+        for (Student stud : students) {
+            if (stud.getName().equals(student.getName())) {
+                return null;
+            }
+        }
+
+        /*Optional<Student> stud = students.stream().filter(x -> x.getName().equals(student.getName())).findFirst();
         if(stud.isPresent()){
             return null;
-        }
+        }*/
+
         return students;
     }
 }

@@ -1,7 +1,8 @@
 const initialState = {
     name: "",
     handUp: false,
-    type: "JOIN"
+    type: "JOIN",
+    isChange: false
 };
 
 export function userReducer(state = initialState, action) {
@@ -18,6 +19,9 @@ export function userReducer(state = initialState, action) {
 
         case "TYPE_MESSAGE":
             return {...state, type: action.payload};
+
+        case "isChange":
+            return {...state, isChange: action.payload};
 
         default:
             return state
